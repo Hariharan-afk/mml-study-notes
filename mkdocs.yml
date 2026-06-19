@@ -1,0 +1,73 @@
+site_name: Mathematics for Machine Learning — Study Notes
+site_description: Beginner-friendly notes, examples, diagrams, and Python demos for Mathematics for Machine Learning.
+site_author: Hariharan Chandrasekar
+
+repo_name: Hariharan-afk/mml-study-notes
+repo_url: https://github.com/Hariharan-afk/mml-study-notes
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: black
+      accent: blue
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Roadmap: 00-getting-started/roadmap.md
+      - How to Use These Notes: 00-getting-started/how-to-use-these-notes.md
+  - Linear Algebra:
+      - Chapter Overview: 02-linear-algebra/index.md
+      - Systems of Linear Equations: 02-linear-algebra/01-systems-of-linear-equations.md
+  - Analytic Geometry:
+      - Chapter Overview: 03-analytic-geometry/index.md
+  - Matrix Decompositions:
+      - Chapter Overview: 04-matrix-decompositions/index.md
+  - Vector Calculus:
+      - Chapter Overview: 05-vector-calculus/index.md
+  - Probability and Distributions:
+      - Chapter Overview: 06-probability-and-distributions/index.md
+  - Continuous Optimization:
+      - Chapter Overview: 07-continuous-optimization/index.md
+  - Models and Data:
+      - Chapter Overview: 08-models-and-data/index.md
+  - Linear Regression:
+      - Chapter Overview: 09-linear-regression/index.md
+  - PCA:
+      - Chapter Overview: 10-pca/index.md
+  - Gaussian Mixture Models:
+      - Chapter Overview: 11-gaussian-mixture-models/index.md
+  - Support Vector Machines:
+      - Chapter Overview: 12-support-vector-machines/index.md
+  - Glossary:
+      - Symbols: glossary/symbols.md
+      - Terms: glossary/terms.md
