@@ -45,6 +45,7 @@ nav:
   - Getting Started:
       - Roadmap: 00-getting-started/roadmap.md
       - How to Use These Notes: 00-getting-started/how-to-use-these-notes.md
+      - Copyright and Use: 00-getting-started/copyright-and-use.md
   - Linear Algebra:
       - Chapter Overview: 02-linear-algebra/index.md
       - Systems of Linear Equations: 02-linear-algebra/01-systems-of-linear-equations.md
