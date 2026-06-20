@@ -104,7 +104,7 @@ $$
 This means $A$ is a real-valued matrix with 2 rows and 3 columns.
 
 !!! intuition
-A matrix is a structured table of numbers. The structure matters because rows and columns often have different meanings.
+    A matrix is a structured table of numbers. The structure matters because rows and columns often have different meanings.
 
 ---
 
@@ -136,7 +136,7 @@ The entry $a_{ij}$ means:
 So $a_{23}$ means the entry in row 2, column 3.
 
 !!! note
-Matrix indexing in mathematics usually starts at 1. In Python and NumPy, indexing starts at 0.
+    Matrix indexing in mathematics usually starts at 1. In Python and NumPy, indexing starts at 0.
 
 ---
 
@@ -217,7 +217,7 @@ $$
 In machine learning, columns often represent features.
 
 !!! intuition
-Rows often describe examples or constraints. Columns often describe features or directions.
+    Rows often describe examples or constraints. Columns often describe features or directions.
 
 ---
 
@@ -297,11 +297,11 @@ $$
 This is exactly how many machine learning datasets are represented.
 
 !!! example
-If a dataset has 1000 examples and 20 features, its data matrix has shape
+    If a dataset has 1000 examples and 20 features, its data matrix has shape
 
-$$
-X \in \mathbb{R}^{1000 \times 20}.
-$$
+    $$
+    X \in \mathbb{R}^{1000 \times 20}.
+    $$
 
 ---
 
@@ -365,16 +365,16 @@ $$
 $$
 
 !!! warning
-You cannot add matrices with different shapes.
+    You cannot add matrices with different shapes.
 
 
-For example,
+    For example,
 
-$$
-\mathbb{R}^{2 \times 3} + \mathbb{R}^{3 \times 2}
-$$
+    $$
+    \mathbb{R}^{2 \times 3} + \mathbb{R}^{3 \times 2}
+    $$
 
-is not defined.
+    is not defined.
 
 ---
 
@@ -423,7 +423,7 @@ $$
 $$
 
 !!! intuition
-Scalar multiplication stretches or shrinks every entry of the matrix by the same factor.
+    Scalar multiplication stretches or shrinks every entry of the matrix by the same factor.
 
 ---
 
@@ -464,7 +464,7 @@ $$
 The result has the outer dimensions.
 
 !!! intuition
-Matrix multiplication combines rows of the first matrix with columns of the second matrix.
+    Matrix multiplication combines rows of the first matrix with columns of the second matrix.
 
 ### Entry-Wise Formula for Matrix Multiplication
 
@@ -611,22 +611,22 @@ $$
 These are different operations.
 
 !!! warning
-Matrix multiplication and element-wise multiplication are not the same.
+    Matrix multiplication and element-wise multiplication are not the same.
 
 
-In NumPy:
+    In NumPy:
 
-```python
-A @ B
-```
+    ```python
+    A @ B
+    ```
 
-performs matrix multiplication, while
+    performs matrix multiplication, while
 
-```python
-A * B
-```
+    ```python
+    A * B
+    ```
 
-performs element-wise multiplication.
+    performs element-wise multiplication.
 
 ---
 
@@ -671,7 +671,7 @@ Both products exist, but they have different shapes.
 So they cannot be equal.
 
 !!! intuition
-Matrix multiplication represents ordered operations. Changing the order usually changes the result.
+    Matrix multiplication represents ordered operations. Changing the order usually changes the result.
 
 ---
 
@@ -716,7 +716,7 @@ Notice the sizes:
 * $I_n$ goes on the right.
 
 !!! intuition
-The identity matrix does nothing. It preserves the matrix it multiplies.
+    The identity matrix does nothing. It preserves the matrix it multiplies.
 
 ---
 
@@ -753,7 +753,7 @@ A matrix that has an inverse is called **invertible** or **nonsingular**.
 A matrix that does not have an inverse is called **singular** or **noninvertible**.
 
 !!! warning
-Not every square matrix has an inverse.
+    Not every square matrix has an inverse.
 
 ### Example of a Matrix Inverse
 
@@ -809,7 +809,7 @@ $$
 So $A^{-1}$ really undoes $A$.
 
 !!! intuition
-If a matrix represents an operation, its inverse represents the operation that reverses it.
+    If a matrix represents an operation, its inverse represents the operation that reverses it.
 
 ### Inverse of a 2 by 2 Matrix
 
@@ -897,7 +897,7 @@ A^\top \in \mathbb{R}^{n \times m}.
 $$
 
 !!! intuition
-The transpose flips the matrix across its main diagonal.
+    The transpose flips the matrix across its main diagonal.
 
 ---
 
@@ -930,7 +930,7 @@ $$
 $$
 
 !!! important
-When inverting or transposing matrix products, **reverse the order**.
+    When inverting or transposing matrix products, **reverse the order**.
 
 ---
 
@@ -958,9 +958,9 @@ This matrix is symmetric because the entries mirror across the main diagonal.
 The top-right entry equals the bottom-left entry, and so on.
 
 !!! intuition
-A symmetric matrix contains mirrored information across its diagonal.
+    A symmetric matrix contains mirrored information across its diagonal.
 
-Symmetric matrices appear often in machine learning, especially in covariance matrices, kernel matrices, and second-derivative matrices.
+    Symmetric matrices appear often in machine learning, especially in covariance matrices, kernel matrices, and second-derivative matrices.
 
 ---
 
@@ -1097,7 +1097,7 @@ $$
 means finding weights $x_1,x_2,x_3$ so that the columns of $A$ combine to produce $b$.
 
 !!! intuition
-Matrix-vector multiplication asks: how do we combine the columns of the matrix?
+    Matrix-vector multiplication asks: how do we combine the columns of the matrix?
 
 ---
 
@@ -1186,7 +1186,7 @@ $$
 This stretches the vector horizontally by a factor of 2 and keeps the vertical direction unchanged.
 
 !!! intuition
-A matrix can move, stretch, rotate, shear, or project vectors depending on its entries.
+    A matrix can move, stretch, rotate, shear, or project vectors depending on its entries.
 
 ---
 
@@ -1395,7 +1395,7 @@ A matrix can represent:
 So a matrix is both a storage structure and an algebraic object.
 
 !!! intuition
-Thinking of a matrix only as a table is useful at first, but incomplete. A matrix can also act on vectors and transform them.
+    Thinking of a matrix only as a table is useful at first, but incomplete. A matrix can also act on vectors and transform them.
 
 ---
 

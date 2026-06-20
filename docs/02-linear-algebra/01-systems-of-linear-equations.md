@@ -62,7 +62,7 @@ where:
 | $b$                     | known right-hand-side value |
 
 !!! intuition
-A linear equation says that a weighted combination of unknowns must equal a fixed value.
+    A linear equation says that a weighted combination of unknowns must equal a fixed value.
 
 ---
 
@@ -97,46 +97,46 @@ $$
 that satisfies every equation in the system.
 
 !!! example
-Consider
+    Consider
 
 
-$$
-x_1 + x_2 = 10
-$$
+    $$
+    x_1 + x_2 = 10
+    $$
 
-$$
-2x_1 + x_2 = 14.
-$$
+    $$
+    2x_1 + x_2 = 14.
+    $$
 
-Subtract the first equation from the second:
+    Subtract the first equation from the second:
 
-$$
-(2x_1 + x_2) - (x_1 + x_2) = 14 - 10.
-$$
+    $$
+    (2x_1 + x_2) - (x_1 + x_2) = 14 - 10.
+    $$
 
-Therefore,
+    Therefore,
 
-$$
-x_1 = 4.
-$$
+    $$
+    x_1 = 4.
+    $$
 
-Substitute into the first equation:
+    Substitute into the first equation:
 
-$$
-4 + x_2 = 10.
-$$
+    $$
+    4 + x_2 = 10.
+    $$
 
-So,
+    So,
 
-$$
-x_2 = 6.
-$$
+    $$
+    x_2 = 6.
+    $$
 
-Hence the solution is
+    Hence the solution is
 
-$$
-(x_1, x_2) = (4, 6).
-$$
+    $$
+    (x_1, x_2) = (4, 6).
+    $$
 
 ---
 
@@ -257,7 +257,7 @@ This is impossible.
 Therefore, the system has **no solution**.
 
 !!! intuition
-A system has no solution when its constraints contradict each other.
+    A system has no solution when its constraints contradict each other.
 
 ---
 
@@ -294,7 +294,7 @@ $$
 $$
 
 !!! intuition
-A system has one solution when the constraints are independent enough to pin down a single point.
+    A system has one solution when the constraints are independent enough to pin down a single point.
 
 ---
 
@@ -349,7 +349,7 @@ $$
 $$
 
 !!! intuition
-A system has infinitely many solutions when at least one variable remains free.
+    A system has infinitely many solutions when at least one variable remains free.
 
 ---
 
@@ -406,7 +406,7 @@ So every point on the line through $x$ and $y$ is also a solution.
 Hence, if a linear system has two distinct solutions, it must have infinitely many solutions.
 
 !!! takeaway
-A linear system can have no solution, one solution, or infinitely many solutions — but not exactly two.
+    A linear system can have no solution, one solution, or infinitely many solutions — but not exactly two.
 
 ---
 
@@ -503,7 +503,7 @@ The solution set can be:
 | equations describe the same plane or redundant constraints | infinitely many solutions |
 
 !!! note
-A plane is a flat two-dimensional surface living in three-dimensional space. It has length and width, but no thickness.
+    A plane is a flat two-dimensional surface living in three-dimensional space. It has length and width, but no thickness.
 
 ---
 
@@ -536,7 +536,7 @@ $$
 then the third equation is redundant because it is already implied by the first two.
 
 !!! intuition
-Redundant equations do not change the solution set. They repeat information that is already present.
+    Redundant equations do not change the solution set. They repeat information that is already present.
 
 ---
 
@@ -655,7 +655,7 @@ x_1 - x_2 = 1.
 $$
 
 !!! intuition
-The row view sees a linear system as a collection of constraints.
+    The row view sees a linear system as a collection of constraints.
 
 ---
 
@@ -711,7 +711,7 @@ $$
 where $a_1$ and $a_2$ are the columns of $A$.
 
 !!! intuition
-The column view asks: can we build the target vector $b$ by combining the columns of $A$?
+    The column view asks: can we build the target vector $b$ by combining the columns of $A$?
 
 ---
 
