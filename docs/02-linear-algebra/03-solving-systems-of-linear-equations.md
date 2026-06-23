@@ -121,6 +121,7 @@ x =
 2
 \end{bmatrix}.
 $$
+
 This is a simple example of a system of linear equations. For more complex systems, we need more sophisticated methods like Gaussian elimination, which will be covered in the later part of this section. However, the underlying principles remain the same.
 
 !!! intuition
@@ -448,7 +449,7 @@ $$
 
 This describes all solutions.
 
-!!! Intuition
+!!! intuition
     So the general approach to solving a system of linear equations consists of 3 steps:
 
     1. Find a particular solution.
