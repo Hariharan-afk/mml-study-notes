@@ -2,7 +2,7 @@
 
 title: "2.2 Matrices"
 description: "Understanding matrices, matrix operations, matrix multiplication, inverse, transpose, and their role in machine learning."
-----------------------------------------------------------------------------------------------------------------------------------------
+---
 
 # 2.2 Matrices
 

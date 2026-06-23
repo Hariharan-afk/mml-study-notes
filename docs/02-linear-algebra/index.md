@@ -16,8 +16,8 @@ In machine learning, linear algebra is used to represent:
 |---|---|---|
 | 2.1 | Systems of Linear Equations | Published |
 | 2.2 | Matrices | Published |
-| 2.3 | Solving Systems of Linear Equations | Draft |
-| 2.4 | Vector Spaces | Not started |
+| 2.3 | Solving Systems of Linear Equations | Published |
+| 2.4 | Vector Spaces | Draft |
 | 2.5 | Linear Independence | Not started |
 | 2.6 | Basis and Rank | Not started |
 | 2.7 | Linear Mappings | Not started |
