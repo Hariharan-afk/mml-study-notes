@@ -1,0 +1,3597 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Understanding systems of linear equations, their geometric meaning, solution types, and machine learning relevance.">
+      
+      
+        <meta name="author" content="Hariharan Chandrasekar">
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02-matrices/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2.1 Systems of Linear Equations - Mathematics for Machine Learning — Study Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21-systems-of-linear-equations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mathematics for Machine Learning — Study Notes" class="md-header__button md-logo" aria-label="Mathematics for Machine Learning — Study Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mathematics for Machine Learning — Study Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.1 Systems of Linear Equations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Hariharan-afk/mml-study-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hariharan-afk/mml-study-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00-getting-started/roadmap/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Linear Algebra
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03-analytic-geometry/" class="md-tabs__link">
+          
+  
+  
+  Analytic Geometry
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04-matrix-decompositions/" class="md-tabs__link">
+          
+  
+  
+  Matrix Decompositions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05-vector-calculus/" class="md-tabs__link">
+          
+  
+  
+  Vector Calculus
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06-probability-and-distributions/" class="md-tabs__link">
+          
+  
+  
+  Probability and Distributions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07-continuous-optimization/" class="md-tabs__link">
+          
+  
+  
+  Continuous Optimization
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08-models-and-data/" class="md-tabs__link">
+          
+  
+  
+  Models and Data
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../09-linear-regression/" class="md-tabs__link">
+          
+  
+  
+  Linear Regression
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../10-pca/" class="md-tabs__link">
+          
+  
+  
+  PCA
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../11-gaussian-mixture-models/" class="md-tabs__link">
+          
+  
+  
+  Gaussian Mixture Models
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../12-support-vector-machines/" class="md-tabs__link">
+          
+  
+  
+  Support Vector Machines
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/symbols/" class="md-tabs__link">
+          
+  
+  
+  Glossary
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mathematics for Machine Learning — Study Notes" class="md-nav__button md-logo" aria-label="Mathematics for Machine Learning — Study Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mathematics for Machine Learning — Study Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Hariharan-afk/mml-study-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hariharan-afk/mml-study-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-getting-started/roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-getting-started/how-to-use-these-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Use These Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-getting-started/note-writing-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Note Writing System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-getting-started/copyright-and-use/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copyright and Use
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linear Algebra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems of Linear Equations
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems of Linear Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-section-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Section Matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-linear-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Linear Equations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-systems-of-linear-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Systems of Linear Equations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-core-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Core Intuition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-possible-solution-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Possible Solution Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-case-1-no-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Case 1: No Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-case-2-exactly-one-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Case 2: Exactly One Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-case-3-infinitely-many-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Case 3: Infinitely Many Solutions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-exactly-two-solutions-are-impossible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Why Exactly Two Solutions Are Impossible
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-geometric-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Geometric Interpretation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Geometric Interpretation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-variables-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Variables: Lines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-intersection-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One Intersection Point
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-intersection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Intersection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#same-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Same Line
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-three-variables-planes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Three Variables: Planes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-redundant-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Redundant Equations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-matrix-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Matrix Form
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-row-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Row View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-column-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Column View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-worked-example-row-and-column-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Worked Example: Row and Column View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-connection-to-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Connection to Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Connection to Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear Regression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-feature-redundancy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Feature Redundancy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-noisy-data-and-inconsistent-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Noisy Data and Inconsistent Systems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-common-confusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Common Confusions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19. Common Confusions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confusion-1-infinite-solutions-means-every-vector-is-a-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confusion 1: Infinite solutions means every vector is a solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confusion-2-no-solution-means-the-problem-is-useless" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confusion 2: No solution means the problem is useless
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-quick-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Quick Check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-key-formula-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Key Formula Sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-matrices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matrices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-solving-systems-of-linear-equations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solving Systems of Linear Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-vector-spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Spaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analytic Geometry
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Analytic Geometry
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-analytic-geometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matrix Decompositions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Matrix Decompositions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-matrix-decompositions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Calculus
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Vector Calculus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-vector-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability and Distributions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Probability and Distributions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-probability-and-distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous Optimization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Continuous Optimization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-continuous-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models and Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Models and Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-models-and-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linear Regression
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-linear-regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PCA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PCA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-pca/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gaussian Mixture Models
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gaussian Mixture Models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-gaussian-mixture-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Support Vector Machines
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Support Vector Machines
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12-support-vector-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Glossary
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/symbols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-section-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Section Matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-linear-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Linear Equations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-systems-of-linear-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Systems of Linear Equations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-core-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Core Intuition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-possible-solution-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Possible Solution Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-case-1-no-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Case 1: No Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-case-2-exactly-one-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Case 2: Exactly One Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-case-3-infinitely-many-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Case 3: Infinitely Many Solutions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-exactly-two-solutions-are-impossible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Why Exactly Two Solutions Are Impossible
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-geometric-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Geometric Interpretation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Geometric Interpretation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-variables-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Variables: Lines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-intersection-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One Intersection Point
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-intersection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Intersection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#same-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Same Line
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-three-variables-planes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Three Variables: Planes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-redundant-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Redundant Equations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-matrix-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Matrix Form
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-row-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Row View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-column-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Column View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-worked-example-row-and-column-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Worked Example: Row and Column View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-connection-to-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Connection to Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Connection to Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear Regression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-feature-redundancy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Feature Redundancy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-noisy-data-and-inconsistent-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Noisy Data and Inconsistent Systems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-common-confusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Common Confusions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19. Common Confusions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confusion-1-infinite-solutions-means-every-vector-is-a-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confusion 1: Infinite solutions means every vector is a solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confusion-2-no-solution-means-the-problem-is-useless" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confusion 2: No solution means the problem is useless
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-quick-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Quick Check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-key-formula-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Key Formula Sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="21-systems-of-linear-equations">2.1 Systems of Linear Equations<a class="headerlink" href="#21-systems-of-linear-equations" title="Permanent link">&para;</a></h1>
+<h2 id="why-this-section-matters">Why This Section Matters<a class="headerlink" href="#why-this-section-matters" title="Permanent link">&para;</a></h2>
+<p>Systems of linear equations are one of the starting points of linear algebra.</p>
+<p>A system of linear equations describes multiple linear constraints that must be satisfied at the same time. This idea appears constantly in machine learning: solving for model parameters, fitting linear regression models, understanding feature redundancy, and working with high-dimensional data matrices.</p>
+<p>In this section, we learn:</p>
+<ul>
+<li>what a system of linear equations is,</li>
+<li>what it means to solve one,</li>
+<li>why a system can have no solution, one solution, or infinitely many solutions,</li>
+<li>how to interpret systems geometrically,</li>
+<li>how systems lead naturally to matrix notation.</li>
+</ul>
+<hr />
+<h2 id="1-linear-equations">1. Linear Equations<a class="headerlink" href="#1-linear-equations" title="Permanent link">&para;</a></h2>
+<p>A <strong>linear equation</strong> is an equation where the unknown variables appear only to the first power and are not multiplied with each other.</p>
+<p>For example,</p>
+<div class="arithmatex">\[
+2x_1 + 3x_2 = 8
+\]</div>
+<p>is linear.</p>
+<p>But the following are not linear:</p>
+<div class="arithmatex">\[
+x_1^2 + x_2 = 5
+\]</div>
+<div class="arithmatex">\[
+x_1x_2 = 7
+\]</div>
+<div class="arithmatex">\[
+\sin(x_1) + x_2 = 3
+\]</div>
+<p>A general linear equation with <span class="arithmatex">\(n\)</span> unknowns has the form</p>
+<div class="arithmatex">\[
+a_1x_1 + a_2x_2 + \cdots + a_nx_n = b
+\]</div>
+<p>where:</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(x_1, x_2, \ldots, x_n\)</span></td>
+<td>unknown variables</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(a_1, a_2, \ldots, a_n\)</span></td>
+<td>known coefficients</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(b\)</span></td>
+<td>known right-hand-side value</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>A linear equation says that a weighted combination of unknowns must equal a fixed value.</p>
+</div>
+<hr />
+<h2 id="2-systems-of-linear-equations">2. Systems of Linear Equations<a class="headerlink" href="#2-systems-of-linear-equations" title="Permanent link">&para;</a></h2>
+<p>A <strong>system of linear equations</strong> is a collection of linear equations that must all be true simultaneously.</p>
+<p>A general system with <span class="arithmatex">\(m\)</span> equations and <span class="arithmatex">\(n\)</span> unknowns is</p>
+<div class="arithmatex">\[
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1
+\]</div>
+<div class="arithmatex">\[
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2
+\]</div>
+<div class="arithmatex">\[
+\vdots
+\]</div>
+<div class="arithmatex">\[
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m.
+\]</div>
+<p>A solution is a tuple</p>
+<div class="arithmatex">\[
+(x_1, x_2, \ldots, x_n)
+\]</div>
+<p>that satisfies every equation in the system.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Consider</p>
+<div class="arithmatex">\[
+x_1 + x_2 = 10
+\]</div>
+<div class="arithmatex">\[
+2x_1 + x_2 = 14.
+\]</div>
+<p>Subtract the first equation from the second:</p>
+<div class="arithmatex">\[
+(2x_1 + x_2) - (x_1 + x_2) = 14 - 10.
+\]</div>
+<p>Therefore,</p>
+<div class="arithmatex">\[
+x_1 = 4.
+\]</div>
+<p>Substitute into the first equation:</p>
+<div class="arithmatex">\[
+4 + x_2 = 10.
+\]</div>
+<p>So,</p>
+<div class="arithmatex">\[
+x_2 = 6.
+\]</div>
+<p>Hence the solution is</p>
+<div class="arithmatex">\[
+(x_1, x_2) = (4, 6).
+\]</div>
+</div>
+<hr />
+<h2 id="3-the-core-intuition">3. The Core Intuition<a class="headerlink" href="#3-the-core-intuition" title="Permanent link">&para;</a></h2>
+<p>A system of linear equations is a set of constraints.</p>
+<p>Each equation says:</p>
+<blockquote>
+<p>The variables must combine in this particular way to produce this value.</p>
+</blockquote>
+<p>Solving the system means finding values of the variables that satisfy all constraints at once.</p>
+<p>For example, suppose a coffee shop produces two drinks:</p>
+<ul>
+<li><span class="arithmatex">\(x_1\)</span> = number of lattes,</li>
+<li><span class="arithmatex">\(x_2\)</span> = number of mochas.</li>
+</ul>
+<p>Each latte uses 2 units of milk and 1 unit of espresso.
+Each mocha uses 1 unit of milk and 2 units of espresso.</p>
+<p>If the shop wants to use exactly 11 units of milk and 10 units of espresso, then</p>
+<div class="arithmatex">\[
+2x_1 + x_2 = 11
+\]</div>
+<div class="arithmatex">\[
+x_1 + 2x_2 = 10.
+\]</div>
+<p>Solving:</p>
+<p>From the first equation,</p>
+<div class="arithmatex">\[
+x_2 = 11 - 2x_1.
+\]</div>
+<p>Substitute into the second equation:</p>
+<div class="arithmatex">\[
+x_1 + 2(11 - 2x_1) = 10.
+\]</div>
+<p>So,</p>
+<div class="arithmatex">\[
+x_1 + 22 - 4x_1 = 10.
+\]</div>
+<p>Therefore,</p>
+<div class="arithmatex">\[
+-3x_1 = -12,
+\]</div>
+<p>so</p>
+<div class="arithmatex">\[
+x_1 = 4.
+\]</div>
+<p>Then</p>
+<div class="arithmatex">\[
+x_2 = 3.
+\]</div>
+<p>So the coffee shop should make:</p>
+<div class="arithmatex">\[
+4 \text{ lattes and } 3 \text{ mochas}.
+\]</div>
+<hr />
+<h2 id="4-possible-solution-types">4. Possible Solution Types<a class="headerlink" href="#4-possible-solution-types" title="Permanent link">&para;</a></h2>
+<p>A real-valued system of linear equations can have only three possible solution behaviors:</p>
+<ol>
+<li>no solution,</li>
+<li>exactly one solution,</li>
+<li>infinitely many solutions.</li>
+</ol>
+<p>It cannot have exactly two or exactly three solutions.</p>
+<hr />
+<h2 id="5-case-1-no-solution">5. Case 1: No Solution<a class="headerlink" href="#5-case-1-no-solution" title="Permanent link">&para;</a></h2>
+<p>Consider</p>
+<div class="arithmatex">\[
+x_1 + x_2 = 5
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+2x_1 + 2x_2 = 12.
+\]</div>
+<p>If the first equation is true, then multiplying it by 2 gives</p>
+<div class="arithmatex">\[
+2x_1 + 2x_2 = 10.
+\]</div>
+<p>But the second equation says</p>
+<div class="arithmatex">\[
+2x_1 + 2x_2 = 12.
+\]</div>
+<p>This is impossible.</p>
+<p>Therefore, the system has <strong>no solution</strong>.</p>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>A system has no solution when its constraints contradict each other.</p>
+</div>
+<hr />
+<h2 id="6-case-2-exactly-one-solution">6. Case 2: Exactly One Solution<a class="headerlink" href="#6-case-2-exactly-one-solution" title="Permanent link">&para;</a></h2>
+<p>Consider</p>
+<div class="arithmatex">\[
+x_1 + x_2 = 10
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+2x_1 + x_2 = 14.
+\]</div>
+<p>Subtracting the first equation from the second gives</p>
+<div class="arithmatex">\[
+x_1 = 4.
+\]</div>
+<p>Then</p>
+<div class="arithmatex">\[
+x_2 = 6.
+\]</div>
+<p>So the system has exactly one solution:</p>
+<div class="arithmatex">\[
+(x_1, x_2) = (4, 6).
+\]</div>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>A system has one solution when the constraints are independent enough to pin down a single point.</p>
+</div>
+<hr />
+<h2 id="7-case-3-infinitely-many-solutions">7. Case 3: Infinitely Many Solutions<a class="headerlink" href="#7-case-3-infinitely-many-solutions" title="Permanent link">&para;</a></h2>
+<p>Consider</p>
+<div class="arithmatex">\[
+x_1 + x_2 = 5
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+2x_1 + 2x_2 = 10.
+\]</div>
+<p>The second equation is just twice the first equation.</p>
+<p>So both equations represent the same constraint.</p>
+<p>The system is effectively just</p>
+<div class="arithmatex">\[
+x_1 + x_2 = 5.
+\]</div>
+<p>Let</p>
+<div class="arithmatex">\[
+x_1 = t,
+\]</div>
+<p>where <span class="arithmatex">\(t \in \mathbb{R}\)</span>.</p>
+<p>Then</p>
+<div class="arithmatex">\[
+x_2 = 5 - t.
+\]</div>
+<p>So the solution set is</p>
+<div class="arithmatex">\[
+(x_1, x_2) = (t, 5 - t), \quad t \in \mathbb{R}.
+\]</div>
+<p>Examples of valid solutions include</p>
+<div class="arithmatex">\[
+(0,5), (1,4), (2,3), (10,-5).
+\]</div>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>A system has infinitely many solutions when at least one variable remains free.</p>
+</div>
+<hr />
+<h2 id="8-why-exactly-two-solutions-are-impossible">8. Why Exactly Two Solutions Are Impossible<a class="headerlink" href="#8-why-exactly-two-solutions-are-impossible" title="Permanent link">&para;</a></h2>
+<p>Suppose a linear system has two different solutions <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span>.</p>
+<p>That means</p>
+<div class="arithmatex">\[
+Ax = b
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+Ay = b.
+\]</div>
+<p>Now take any linear interpolation between them:</p>
+<div class="arithmatex">\[
+z = (1-t)x + ty,
+\]</div>
+<p>where <span class="arithmatex">\(t \in \mathbb{R}\)</span>.</p>
+<p>Then</p>
+<div class="arithmatex">\[
+Az = A((1-t)x + ty).
+\]</div>
+<p>Using linearity,</p>
+<div class="arithmatex">\[
+Az = (1-t)Ax + tAy.
+\]</div>
+<p>Since <span class="arithmatex">\(Ax = b\)</span> and <span class="arithmatex">\(Ay = b\)</span>,</p>
+<div class="arithmatex">\[
+Az = (1-t)b + tb.
+\]</div>
+<p>Therefore,</p>
+<div class="arithmatex">\[
+Az = b.
+\]</div>
+<p>So every point on the line through <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> is also a solution.</p>
+<p>Hence, if a linear system has two distinct solutions, it must have infinitely many solutions.</p>
+<div class="admonition takeaway">
+<p class="admonition-title">Takeaway</p>
+<p>A linear system can have no solution, one solution, or infinitely many solutions — but not exactly two.</p>
+</div>
+<hr />
+<h2 id="9-geometric-interpretation">9. Geometric Interpretation<a class="headerlink" href="#9-geometric-interpretation" title="Permanent link">&para;</a></h2>
+<h3 id="two-variables-lines">Two Variables: Lines<a class="headerlink" href="#two-variables-lines" title="Permanent link">&para;</a></h3>
+<p>In two variables, each linear equation represents a line.</p>
+<p>For example,</p>
+<div class="arithmatex">\[
+x_1 + x_2 = 5
+\]</div>
+<p>is a line in the <span class="arithmatex">\(x_1x_2\)</span>-plane.</p>
+<p>A system of two linear equations asks where the two lines intersect.</p>
+<p>There are three possibilities.</p>
+<h3 id="one-intersection-point">One Intersection Point<a class="headerlink" href="#one-intersection-point" title="Permanent link">&para;</a></h3>
+<p>If two lines meet at one point, the system has one solution.</p>
+<p>Example:</p>
+<div class="arithmatex">\[
+x_1 + x_2 = 5
+\]</div>
+<div class="arithmatex">\[
+2x_1 + x_2 = 8.
+\]</div>
+<p>The lines intersect at</p>
+<div class="arithmatex">\[
+(3,2).
+\]</div>
+<h3 id="no-intersection">No Intersection<a class="headerlink" href="#no-intersection" title="Permanent link">&para;</a></h3>
+<p>If two lines are parallel and distinct, the system has no solution.</p>
+<p>Example:</p>
+<div class="arithmatex">\[
+x_1 + x_2 = 5
+\]</div>
+<div class="arithmatex">\[
+x_1 + x_2 = 3.
+\]</div>
+<p>These lines never meet as shown in Figure 2.1 (b).</p>
+<h3 id="same-line">Same Line<a class="headerlink" href="#same-line" title="Permanent link">&para;</a></h3>
+<p>If both equations describe the same line, the system has infinitely many solutions.</p>
+<p>Example:</p>
+<div class="arithmatex">\[
+x_1 + x_2 = 5
+\]</div>
+<div class="arithmatex">\[
+2x_1 + 2x_2 = 10.
+\]</div>
+<p>Both equations describe the same line; see Figure 2.1 (c).</p>
+<p>Every point on that line is a solution.</p>
+<p><img alt="Geometric interpretation of systems of linear equations" src="../../assets/images/chapter_2/section_2_1/linear_system_solution_types.png" />
+<em>Three possible geometric outcomes for two linear equations in two variables: one intersection point, no intersection, or the same line.</em></p>
+<hr />
+<h2 id="10-three-variables-planes">10. Three Variables: Planes<a class="headerlink" href="#10-three-variables-planes" title="Permanent link">&para;</a></h2>
+<p>In three variables, each linear equation represents a plane.</p>
+<p>A system of equations asks where the planes intersect.</p>
+<p>The solution set can be:</p>
+<table>
+<thead>
+<tr>
+<th>Geometric situation</th>
+<th>Solution type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>planes do not share a common intersection</td>
+<td>no solution</td>
+</tr>
+<tr>
+<td>planes meet at one point</td>
+<td>exactly one solution</td>
+</tr>
+<tr>
+<td>planes intersect along a line</td>
+<td>infinitely many solutions</td>
+</tr>
+<tr>
+<td>equations describe the same plane or redundant constraints</td>
+<td>infinitely many solutions</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A plane is a flat two-dimensional surface living in three-dimensional space. It has length and width, but no thickness.</p>
+</div>
+<hr />
+<h2 id="11-redundant-equations">11. Redundant Equations<a class="headerlink" href="#11-redundant-equations" title="Permanent link">&para;</a></h2>
+<p>An equation is <strong>redundant</strong> if it does not add new information to the system.</p>
+<p>Example:</p>
+<div class="arithmatex">\[
+x_1 + x_2 + x_3 = 3
+\]</div>
+<div class="arithmatex">\[
+x_1 - x_2 + 2x_3 = 2
+\]</div>
+<p>Add the two equations:</p>
+<div class="arithmatex">\[
+2x_1 + 3x_3 = 5.
+\]</div>
+<p>So if the system also contains</p>
+<div class="arithmatex">\[
+2x_1 + 3x_3 = 5,
+\]</div>
+<p>then the third equation is redundant because it is already implied by the first two.</p>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>Redundant equations do not change the solution set. They repeat information that is already present.</p>
+</div>
+<hr />
+<h2 id="12-matrix-form">12. Matrix Form<a class="headerlink" href="#12-matrix-form" title="Permanent link">&para;</a></h2>
+<p>The system</p>
+<div class="arithmatex">\[
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1
+\]</div>
+<div class="arithmatex">\[
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2
+\]</div>
+<div class="arithmatex">\[
+\vdots
+\]</div>
+<div class="arithmatex">\[
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m
+\]</div>
+<p>can be written compactly as</p>
+<div class="arithmatex">\[
+Ax = b.
+\]</div>
+<p>Here,</p>
+<div class="arithmatex">\[
+A =
+\begin{bmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
+\end{bmatrix},
+\]</div>
+<div class="arithmatex">\[
+x =
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{bmatrix},
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+b =
+\begin{bmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{bmatrix}.
+\]</div>
+<p>So:</p>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(A\)</span></td>
+<td>coefficient matrix</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(x\)</span></td>
+<td>vector of unknowns</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(b\)</span></td>
+<td>right-hand-side vector</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-row-view">13. Row View<a class="headerlink" href="#13-row-view" title="Permanent link">&para;</a></h2>
+<p>In the row view, each row of <span class="arithmatex">\(A\)</span> represents one equation.</p>
+<p>For example, if</p>
+<div class="arithmatex">\[
+A =
+\begin{bmatrix}
+2 &amp; 3 \\
+1 &amp; -1
+\end{bmatrix},
+\quad
+x =
+\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix},
+\quad
+b =
+\begin{bmatrix}
+8 \\
+1
+\end{bmatrix},
+\]</div>
+<p>then</p>
+<div class="arithmatex">\[
+Ax = b
+\]</div>
+<p>means</p>
+<div class="arithmatex">\[
+2x_1 + 3x_2 = 8
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+x_1 - x_2 = 1.
+\]</div>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>The row view sees a linear system as a collection of constraints.</p>
+</div>
+<hr />
+<h2 id="14-column-view">14. Column View<a class="headerlink" href="#14-column-view" title="Permanent link">&para;</a></h2>
+<p>In the column view, the system</p>
+<div class="arithmatex">\[
+Ax = b
+\]</div>
+<p>is interpreted as a weighted combination of the columns of <span class="arithmatex">\(A\)</span>.</p>
+<p>Suppose</p>
+<div class="arithmatex">\[
+A =
+\begin{bmatrix}
+1 &amp; 2 \\
+3 &amp; 1
+\end{bmatrix}.
+\]</div>
+<p>Then</p>
+<div class="arithmatex">\[
+Ax =
+x_1
+\begin{bmatrix}
+1 \\
+3
+\end{bmatrix}
++
+x_2
+\begin{bmatrix}
+2 \\
+1
+\end{bmatrix}.
+\]</div>
+<p>So solving</p>
+<div class="arithmatex">\[
+Ax = b
+\]</div>
+<p>means finding weights <span class="arithmatex">\(x_1\)</span> and <span class="arithmatex">\(x_2\)</span> such that</p>
+<div class="arithmatex">\[
+x_1a_1 + x_2a_2 = b,
+\]</div>
+<p>where <span class="arithmatex">\(a_1\)</span> and <span class="arithmatex">\(a_2\)</span> are the columns of <span class="arithmatex">\(A\)</span>.</p>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>The column view asks: can we build the target vector <span class="arithmatex">\(b\)</span> by combining the columns of <span class="arithmatex">\(A\)</span>?</p>
+</div>
+<hr />
+<h2 id="15-worked-example-row-and-column-view">15. Worked Example: Row and Column View<a class="headerlink" href="#15-worked-example-row-and-column-view" title="Permanent link">&para;</a></h2>
+<p>Consider</p>
+<div class="arithmatex">\[
+A =
+\begin{bmatrix}
+1 &amp; 2 \\
+3 &amp; 1
+\end{bmatrix},
+\quad
+x =
+\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix},
+\quad
+b =
+\begin{bmatrix}
+8 \\
+9
+\end{bmatrix}.
+\]</div>
+<p>The system</p>
+<div class="arithmatex">\[
+Ax = b
+\]</div>
+<p>means</p>
+<div class="arithmatex">\[
+x_1 + 2x_2 = 8
+\]</div>
+<div class="arithmatex">\[
+3x_1 + x_2 = 9.
+\]</div>
+<p>From the first equation,</p>
+<div class="arithmatex">\[
+x_1 = 8 - 2x_2.
+\]</div>
+<p>Substitute into the second:</p>
+<div class="arithmatex">\[
+3(8 - 2x_2) + x_2 = 9.
+\]</div>
+<p>So,</p>
+<div class="arithmatex">\[
+24 - 6x_2 + x_2 = 9.
+\]</div>
+<p>Therefore,</p>
+<div class="arithmatex">\[
+-5x_2 = -15,
+\]</div>
+<p>so</p>
+<div class="arithmatex">\[
+x_2 = 3.
+\]</div>
+<p>Then</p>
+<div class="arithmatex">\[
+x_1 = 8 - 2(3) = 2.
+\]</div>
+<p>Hence,</p>
+<div class="arithmatex">\[
+x =
+\begin{bmatrix}
+2 \\
+3
+\end{bmatrix}.
+\]</div>
+<p>Column view:</p>
+<div class="arithmatex">\[
+2
+\begin{bmatrix}
+1 \\
+3
+\end{bmatrix}
++
+3
+\begin{bmatrix}
+2 \\
+1
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 \\
+6
+\end{bmatrix}
++
+\begin{bmatrix}
+6 \\
+3
+\end{bmatrix}
+=
+\begin{bmatrix}
+8 \\
+9
+\end{bmatrix}.
+\]</div>
+<p>So the solution tells us how to combine the columns of <span class="arithmatex">\(A\)</span> to produce <span class="arithmatex">\(b\)</span>.</p>
+<hr />
+<h2 id="16-connection-to-machine-learning">16. Connection to Machine Learning<a class="headerlink" href="#16-connection-to-machine-learning" title="Permanent link">&para;</a></h2>
+<h3 id="linear-regression">Linear Regression<a class="headerlink" href="#linear-regression" title="Permanent link">&para;</a></h3>
+<p>In linear regression, we often write the prediction problem as</p>
+<div class="arithmatex">\[
+X\theta \approx y.
+\]</div>
+<p>This looks like a system of linear equations.</p>
+<p>Here:</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(X\)</span></td>
+<td>data matrix</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\theta\)</span></td>
+<td>parameter vector</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(y\)</span></td>
+<td>target vector</td>
+</tr>
+</tbody>
+</table>
+<p>If the equation</p>
+<div class="arithmatex">\[
+X\theta = y
+\]</div>
+<p>has an exact solution, we can fit the targets perfectly.</p>
+<p>But real-world data is usually noisy, so an exact solution often does not exist.</p>
+<p>Instead, linear regression solves an approximate problem:</p>
+<div class="arithmatex">\[
+X\theta \approx y.
+\]</div>
+<p>The goal is to find the parameter vector <span class="arithmatex">\(\theta\)</span> that makes predictions as close as possible to the observed targets.</p>
+<hr />
+<h2 id="17-feature-redundancy">17. Feature Redundancy<a class="headerlink" href="#17-feature-redundancy" title="Permanent link">&para;</a></h2>
+<p>In machine learning, the columns of <span class="arithmatex">\(X\)</span> often represent features.</p>
+<p>If one feature can be expressed as a combination of other features, then the data matrix contains redundant information.</p>
+<p>For example, suppose a dataset contains:</p>
+<ul>
+<li>price before tax,</li>
+<li>tax,</li>
+<li>total price.</li>
+</ul>
+<p>If</p>
+<div class="arithmatex">\[
+\text{total price} = \text{price before tax} + \text{tax},
+\]</div>
+<p>then one column is determined by the others.</p>
+<p>This can lead to non-unique parameter solutions.</p>
+<p>In linear algebra, this is related to linear dependence.</p>
+<p>In machine learning, this is related to multicollinearity.</p>
+<hr />
+<h2 id="18-noisy-data-and-inconsistent-systems">18. Noisy Data and Inconsistent Systems<a class="headerlink" href="#18-noisy-data-and-inconsistent-systems" title="Permanent link">&para;</a></h2>
+<p>A system may have no exact solution when its equations contradict each other.</p>
+<p>In machine learning, this is common because real-world data is noisy.</p>
+<p>For example, two identical inputs may have different observed outputs due to measurement error.</p>
+<p>Instead of requiring a perfect solution, machine learning usually searches for the best approximate solution.</p>
+<p>This leads naturally to least squares.</p>
+<hr />
+<h2 id="19-common-confusions">19. Common Confusions<a class="headerlink" href="#19-common-confusions" title="Permanent link">&para;</a></h2>
+<h3 id="confusion-1-infinite-solutions-means-every-vector-is-a-solution">Confusion 1: Infinite solutions means every vector is a solution<a class="headerlink" href="#confusion-1-infinite-solutions-means-every-vector-is-a-solution" title="Permanent link">&para;</a></h3>
+<p>No.</p>
+<p>Infinite solutions usually means there is a structured set of solutions, such as a line or plane.</p>
+<p>For example,</p>
+<div class="arithmatex">\[
+x_1 + x_2 = 5
+\]</div>
+<p>has infinitely many solutions, but not every pair <span class="arithmatex">\((x_1,x_2)\)</span> is valid.</p>
+<p>The pair <span class="arithmatex">\((100,100)\)</span> is not a solution because</p>
+<div class="arithmatex">\[
+100 + 100 \neq 5.
+\]</div>
+<hr />
+<h3 id="confusion-2-no-solution-means-the-problem-is-useless">Confusion 2: No solution means the problem is useless<a class="headerlink" href="#confusion-2-no-solution-means-the-problem-is-useless" title="Permanent link">&para;</a></h3>
+<p>No.</p>
+<p>In machine learning, no exact solution is normal.</p>
+<p>It usually means we need an approximate solution.</p>
+<p>This is the motivation behind least-squares regression.</p>
+<hr />
+<h2 id="20-summary">20. Summary<a class="headerlink" href="#20-summary" title="Permanent link">&para;</a></h2>
+<p>A system of linear equations is a collection of linear constraints.</p>
+<p>The general form is</p>
+<div class="arithmatex">\[
+a_{i1}x_1 + a_{i2}x_2 + \cdots + a_{in}x_n = b_i.
+\]</div>
+<p>The compact matrix form is</p>
+<div class="arithmatex">\[
+Ax = b.
+\]</div>
+<p>A system can have:</p>
+<ul>
+<li>no solution,</li>
+<li>exactly one solution,</li>
+<li>infinitely many solutions.</li>
+</ul>
+<p>Geometrically:</p>
+<ul>
+<li>in two variables, equations are lines,</li>
+<li>in three variables, equations are planes,</li>
+<li>in higher dimensions, equations are hyperplanes.</li>
+</ul>
+<p>The row view treats each equation as a constraint.</p>
+<p>The column view treats <span class="arithmatex">\(Ax = b\)</span> as asking whether <span class="arithmatex">\(b\)</span> can be built from a weighted combination of the columns of <span class="arithmatex">\(A\)</span>.</p>
+<p>Systems of linear equations are foundational for machine learning because they appear in linear regression, least squares, data matrices, feature redundancy, and parameter estimation.</p>
+<hr />
+<h2 id="21-quick-check">21. Quick Check<a class="headerlink" href="#21-quick-check" title="Permanent link">&para;</a></h2>
+<ol>
+<li>What makes an equation linear?</li>
+<li>Why can a linear system not have exactly two solutions?</li>
+<li>What does each equation represent geometrically in two variables?</li>
+<li>What does each equation represent geometrically in three variables?</li>
+<li>What is the difference between the row view and the column view of <span class="arithmatex">\(Ax=b\)</span>?</li>
+<li>Why does noisy data often lead to systems with no exact solution?</li>
+<li>How is linear regression connected to systems of linear equations?</li>
+</ol>
+<hr />
+<h2 id="22-key-formula-sheet">22. Key Formula Sheet<a class="headerlink" href="#22-key-formula-sheet" title="Permanent link">&para;</a></h2>
+<p>General linear equation:</p>
+<div class="arithmatex">\[
+a_1x_1 + a_2x_2 + \cdots + a_nx_n = b
+\]</div>
+<p>General system:</p>
+<div class="arithmatex">\[
+a_{i1}x_1 + a_{i2}x_2 + \cdots + a_{in}x_n = b_i
+\]</div>
+<p>Matrix form:</p>
+<div class="arithmatex">\[
+Ax = b
+\]</div>
+<p>Column view:</p>
+<div class="arithmatex">\[
+Ax = x_1a_1 + x_2a_2 + \cdots + x_na_n
+\]</div>
+<p>Linear regression form:</p>
+<div class="arithmatex">\[
+X\theta \approx y
+\]</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

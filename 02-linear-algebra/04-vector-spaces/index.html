@@ -1,0 +1,4036 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Understanding vector spaces, groups, vector subspaces, closure, and why these structures matter in machine learning.">
+      
+      
+        <meta name="author" content="Hariharan Chandrasekar">
+      
+      
+      
+        <link rel="prev" href="../03-solving-systems-of-linear-equations/">
+      
+      
+        <link rel="next" href="../../03-analytic-geometry/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2.4 Vector Spaces - Mathematics for Machine Learning — Study Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#24-vector-spaces" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mathematics for Machine Learning — Study Notes" class="md-header__button md-logo" aria-label="Mathematics for Machine Learning — Study Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mathematics for Machine Learning — Study Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.4 Vector Spaces
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Hariharan-afk/mml-study-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hariharan-afk/mml-study-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00-getting-started/roadmap/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Linear Algebra
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03-analytic-geometry/" class="md-tabs__link">
+          
+  
+  
+  Analytic Geometry
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04-matrix-decompositions/" class="md-tabs__link">
+          
+  
+  
+  Matrix Decompositions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05-vector-calculus/" class="md-tabs__link">
+          
+  
+  
+  Vector Calculus
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06-probability-and-distributions/" class="md-tabs__link">
+          
+  
+  
+  Probability and Distributions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07-continuous-optimization/" class="md-tabs__link">
+          
+  
+  
+  Continuous Optimization
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08-models-and-data/" class="md-tabs__link">
+          
+  
+  
+  Models and Data
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../09-linear-regression/" class="md-tabs__link">
+          
+  
+  
+  Linear Regression
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../10-pca/" class="md-tabs__link">
+          
+  
+  
+  PCA
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../11-gaussian-mixture-models/" class="md-tabs__link">
+          
+  
+  
+  Gaussian Mixture Models
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../12-support-vector-machines/" class="md-tabs__link">
+          
+  
+  
+  Support Vector Machines
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/symbols/" class="md-tabs__link">
+          
+  
+  
+  Glossary
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mathematics for Machine Learning — Study Notes" class="md-nav__button md-logo" aria-label="Mathematics for Machine Learning — Study Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mathematics for Machine Learning — Study Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Hariharan-afk/mml-study-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hariharan-afk/mml-study-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-getting-started/roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-getting-started/how-to-use-these-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Use These Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-getting-started/note-writing-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Note Writing System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-getting-started/copyright-and-use/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copyright and Use
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linear Algebra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-systems-of-linear-equations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems of Linear Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-matrices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matrices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-solving-systems-of-linear-equations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solving Systems of Linear Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Spaces
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Spaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-section-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Section Matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-big-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Big Idea
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-do-we-need-formal-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Why Do We Need Formal Rules?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-groups-a-small-detour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Groups: A Small Detour
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Groups: A Small Detour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-of-a-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of a Group
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Definition of a Group">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#property-1-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property 1: Closure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-2-associativity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property 2: Associativity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-3-neutral-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property 3: Neutral Element
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-4-inverse-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property 4: Inverse Element
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-real-numbers-with-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Real Numbers with Addition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example: Real Numbers with Addition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Closure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-associativity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Associativity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-neutral-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Neutral Element
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-inverse-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Inverse Element
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-abelian-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Abelian Group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-is-a-vector-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. What Is a Vector Space?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-vector-space-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Vector Space Rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Vector Space Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addition-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Addition Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scalar-multiplication-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scalar Multiplication Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-examples-of-vector-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Examples of Vector Spaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Examples of Vector Spaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-mathbbrn-is-a-vector-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. \(\mathbb{R}^n\) Is a Vector Space
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-matrices-can-form-vector-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Matrices Can Form Vector Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-polynomials-can-form-vector-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. Polynomials Can Form Vector Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-what-is-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. What Is Closure?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. What Is Closure?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#closure-under-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closure under addition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closure-under-scalar-multiplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closure under scalar multiplication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-vector-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Vector Subspaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Vector Subspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subspace-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subspace Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-examples-and-non-examples-of-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Examples and Non-Examples of Subspaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Examples and Non-Examples of Subspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-a-line-through-the-origin-is-a-subspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. A Line Through the Origin Is a Subspace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1. A Line Through the Origin Is a Subspace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zero-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zero vector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closure-under-addition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closure under addition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closure-under-scalar-multiplication_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closure under scalar multiplication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-a-line-not-through-the-origin-is-not-a-subspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2. A Line Not Through the Origin Is Not a Subspace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-homogeneous-systems-create-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3. Homogeneous Systems Create Subspaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-inhomogeneous-systems-usually-do-not-create-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4. Inhomogeneous Systems Usually Do Not Create Subspaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-geometric-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Geometric Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-machine-learning-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Machine Learning Connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-quick-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Quick Check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-key-formula-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Key Formula Sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analytic Geometry
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Analytic Geometry
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-analytic-geometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matrix Decompositions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Matrix Decompositions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-matrix-decompositions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Calculus
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Vector Calculus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-vector-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability and Distributions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Probability and Distributions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-probability-and-distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous Optimization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Continuous Optimization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-continuous-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models and Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Models and Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-models-and-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linear Regression
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-linear-regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PCA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PCA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-pca/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gaussian Mixture Models
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gaussian Mixture Models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-gaussian-mixture-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Support Vector Machines
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Support Vector Machines
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12-support-vector-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Glossary
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/symbols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-section-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Section Matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-big-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Big Idea
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-do-we-need-formal-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Why Do We Need Formal Rules?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-groups-a-small-detour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Groups: A Small Detour
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Groups: A Small Detour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-of-a-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of a Group
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Definition of a Group">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#property-1-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property 1: Closure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-2-associativity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property 2: Associativity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-3-neutral-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property 3: Neutral Element
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-4-inverse-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property 4: Inverse Element
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-real-numbers-with-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Real Numbers with Addition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example: Real Numbers with Addition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Closure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-associativity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Associativity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-neutral-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Neutral Element
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-inverse-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Inverse Element
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-abelian-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Abelian Group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-is-a-vector-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. What Is a Vector Space?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-vector-space-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Vector Space Rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Vector Space Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addition-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Addition Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scalar-multiplication-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scalar Multiplication Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-examples-of-vector-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Examples of Vector Spaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Examples of Vector Spaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-mathbbrn-is-a-vector-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. \(\mathbb{R}^n\) Is a Vector Space
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-matrices-can-form-vector-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Matrices Can Form Vector Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-polynomials-can-form-vector-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. Polynomials Can Form Vector Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-what-is-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. What Is Closure?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. What Is Closure?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#closure-under-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closure under addition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closure-under-scalar-multiplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closure under scalar multiplication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-vector-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Vector Subspaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Vector Subspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subspace-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subspace Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-examples-and-non-examples-of-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Examples and Non-Examples of Subspaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Examples and Non-Examples of Subspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-a-line-through-the-origin-is-a-subspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. A Line Through the Origin Is a Subspace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1. A Line Through the Origin Is a Subspace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zero-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zero vector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closure-under-addition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closure under addition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closure-under-scalar-multiplication_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closure under scalar multiplication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-a-line-not-through-the-origin-is-not-a-subspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2. A Line Not Through the Origin Is Not a Subspace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-homogeneous-systems-create-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3. Homogeneous Systems Create Subspaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-inhomogeneous-systems-usually-do-not-create-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4. Inhomogeneous Systems Usually Do Not Create Subspaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-geometric-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Geometric Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-machine-learning-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Machine Learning Connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-quick-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Quick Check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-key-formula-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Key Formula Sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="24-vector-spaces">2.4 Vector Spaces<a class="headerlink" href="#24-vector-spaces" title="Permanent link">&para;</a></h1>
+<h2 id="why-this-section-matters">Why This Section Matters<a class="headerlink" href="#why-this-section-matters" title="Permanent link">&para;</a></h2>
+<p>So far, we have worked with vectors and matrices mostly as arrays of numbers.</p>
+<p>But linear algebra is not only about arrays.</p>
+<p>It is about <strong>structured spaces</strong> where objects can be added and scaled in a consistent way.</p>
+<p>A <strong>vector space</strong> is the mathematical structure that tells us what it means for a collection of objects to behave like vectors.</p>
+<p>This matters because many machine learning objects can be treated as vectors:</p>
+<ul>
+<li>data points,</li>
+<li>feature vectors,</li>
+<li>model parameters,</li>
+<li>images,</li>
+<li>word embeddings,</li>
+<li>audio signals,</li>
+<li>functions,</li>
+<li>matrices.</li>
+</ul>
+<p>The key idea is:</p>
+<blockquote>
+<p>A vector space is a set of objects where addition and scalar multiplication make sense and keep us inside the same set.</p>
+</blockquote>
+<hr />
+<h2 id="1-the-big-idea">1. The Big Idea<a class="headerlink" href="#1-the-big-idea" title="Permanent link">&para;</a></h2>
+<p>A vector is not just an arrow.</p>
+<p>A vector can be any object that supports two operations:</p>
+<ol>
+<li>vector addition,</li>
+<li>scalar multiplication.</li>
+</ol>
+<p>For example, if <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> are vectors, then</p>
+<div class="arithmatex">\[
+x + y
+\]</div>
+<p>should also be a vector of the same type.</p>
+<p>If <span class="arithmatex">\(\lambda\)</span> is a scalar, then</p>
+<div class="arithmatex">\[
+\lambda x
+\]</div>
+<p>should also be a vector of the same type.</p>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>A vector space is a safe playground for vectors. If you add vectors or scale them, you never leave the playground.</p>
+</div>
+<hr />
+<h2 id="2-why-do-we-need-formal-rules">2. Why Do We Need Formal Rules?<a class="headerlink" href="#2-why-do-we-need-formal-rules" title="Permanent link">&para;</a></h2>
+<p>Informally, we know that vectors can be added and scaled.</p>
+<p>But mathematics needs precision.</p>
+<p>For example, if we say “vectors can be added,” we must also ask:</p>
+<ul>
+<li>Does the result stay in the same set?</li>
+<li>Is addition associative?</li>
+<li>Is there a zero vector?</li>
+<li>Does every vector have an additive inverse?</li>
+<li>Does scalar multiplication behave consistently?</li>
+</ul>
+<p>These rules make vector spaces reliable.</p>
+<hr />
+<h2 id="3-groups-a-small-detour">3. Groups: A Small Detour<a class="headerlink" href="#3-groups-a-small-detour" title="Permanent link">&para;</a></h2>
+<p>Before defining vector spaces, the book introduces the idea of a <strong>group</strong>.</p>
+<p>A group is a mathematical structure that describes a set of objects together with an operation that combines two objects from the set.</p>
+<h3 id="operation">Operation<a class="headerlink" href="#operation" title="Permanent link">&para;</a></h3>
+<p>An <strong>operation</strong> is a rule that takes two elements and combines them to produce another element.</p>
+<p>For a set <span class="arithmatex">\(G\)</span>, we write an operation as</p>
+<div class="arithmatex">\[
+\otimes : G \times G \to G.
+\]</div>
+<p>This means for elements:</p>
+<div class="arithmatex">\[
+x,y \in G
+\]</div>
+<p>the result of the operation is </p>
+<div class="arithmatex">\[
+x \otimes y \in G
+\]</div>
+<p>Here, <span class="arithmatex">\(\otimes\)</span> is a general symbol for an operation. Depending on the context, it could represent addition, multiplication, matrix multiplication, function composition, or something else.</p>
+<hr />
+<h3 id="definition-of-a-group">Definition of a Group<a class="headerlink" href="#definition-of-a-group" title="Permanent link">&para;</a></h3>
+<p>A <strong>group</strong> is a pair</p>
+<div class="arithmatex">\[
+(G,\otimes),
+\]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(G\)</span> is a set,</li>
+<li><span class="arithmatex">\(\otimes\)</span> is an operation on <span class="arithmatex">\(G\)</span>,</li>
+</ul>
+<p>such that the following four properties hold.</p>
+<hr />
+<h4 id="property-1-closure">Property 1: Closure<a class="headerlink" href="#property-1-closure" title="Permanent link">&para;</a></h4>
+<p>For all</p>
+<div class="arithmatex">\[
+x,y \in G,
+\]</div>
+<p>we must have</p>
+<div class="arithmatex">\[
+x \otimes y \in G.
+\]</div>
+<p>This means combining two elements of the set must keep us inside the same set.</p>
+<hr />
+<h4 id="property-2-associativity">Property 2: Associativity<a class="headerlink" href="#property-2-associativity" title="Permanent link">&para;</a></h4>
+<p>For all</p>
+<div class="arithmatex">\[
+x,y,z \in G,
+\]</div>
+<p>we must have</p>
+<div class="arithmatex">\[
+(x \otimes y) \otimes z = x \otimes (y \otimes z).
+\]</div>
+<p>This means grouping does not change the result.</p>
+<hr />
+<h4 id="property-3-neutral-element">Property 3: Neutral Element<a class="headerlink" href="#property-3-neutral-element" title="Permanent link">&para;</a></h4>
+<p>There must exist an element</p>
+<div class="arithmatex">\[
+e \in G
+\]</div>
+<p>such that for every</p>
+<div class="arithmatex">\[
+x \in G,
+\]</div>
+<p>we have</p>
+<div class="arithmatex">\[
+x \otimes e = x
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+e \otimes x = x.
+\]</div>
+<p>The element <span class="arithmatex">\(e\)</span> is called the <strong>neutral element</strong> or <strong>identity element</strong>.</p>
+<hr />
+<h4 id="property-4-inverse-element">Property 4: Inverse Element<a class="headerlink" href="#property-4-inverse-element" title="Permanent link">&para;</a></h4>
+<p>For every</p>
+<div class="arithmatex">\[
+x \in G,
+\]</div>
+<p>there must exist an element</p>
+<div class="arithmatex">\[
+y \in G
+\]</div>
+<p>such that</p>
+<div class="arithmatex">\[
+x \otimes y = e
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+y \otimes x = e.
+\]</div>
+<p>The element <span class="arithmatex">\(y\)</span> is called the <strong>inverse element</strong> of <span class="arithmatex">\(x\)</span>.</p>
+<p>It is often written as</p>
+<div class="arithmatex">\[
+x^{-1}.
+\]</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The inverse depends on the operation.</p>
+<p>It does not always mean the reciprocal <span class="arithmatex">\(\frac{1}{x}\)</span>.</p>
+<p>For addition, the inverse of <span class="arithmatex">\(x\)</span> is <span class="arithmatex">\(-x\)</span> because</p>
+<div class="arithmatex">\[
+x + (-x) = 0.
+\]</div>
+<p>For multiplication, the inverse of <span class="arithmatex">\(x\)</span> is <span class="arithmatex">\(\frac{1}{x}\)</span> because</p>
+<div class="arithmatex">\[
+x \cdot \frac{1}{x} = 1.
+\]</div>
+</div>
+<hr />
+<h3 id="example-real-numbers-with-addition">Example: Real Numbers with Addition<a class="headerlink" href="#example-real-numbers-with-addition" title="Permanent link">&para;</a></h3>
+<p>Now let us consider an example to verify the above 4 properties.</p>
+<p>Consider the set of real numbers with ordinary addition, denoted as</p>
+<div class="arithmatex">\[
+(\mathbb{R}, +)
+\]</div>
+<p>is a group.</p>
+<p>Here:</p>
+<ul>
+<li>the set is <span class="arithmatex">\(\mathbb{R}\)</span>, the set of real numbers,</li>
+<li>the operation is <span class="arithmatex">\(+\)</span>, ordinary addition.</li>
+</ul>
+<p>So in this example,</p>
+<div class="arithmatex">\[
+G = \mathbb{R}
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+\otimes = +.
+\]</div>
+<h4 id="1-closure">1. Closure<a class="headerlink" href="#1-closure" title="Permanent link">&para;</a></h4>
+<p>Take any two real numbers</p>
+<div class="arithmatex">\[
+x,y \in \mathbb{R}.
+\]</div>
+<p>Their sum is also a real number:</p>
+<div class="arithmatex">\[
+x + y \in \mathbb{R}.
+\]</div>
+<p>For example,</p>
+<div class="arithmatex">\[
+2 + 5 = 7,
+\]</div>
+<p>and <span class="arithmatex">\(7\)</span> is still a real number.</p>
+<p>So closure holds.</p>
+<h4 id="2-associativity">2. Associativity<a class="headerlink" href="#2-associativity" title="Permanent link">&para;</a></h4>
+<p>For any real numbers</p>
+<div class="arithmatex">\[
+x,y,z \in \mathbb{R},
+\]</div>
+<p>addition satisfies</p>
+<div class="arithmatex">\[
+(x+y)+z = x+(y+z).
+\]</div>
+<p>For example,</p>
+<div class="arithmatex">\[
+(2+5)+3 = 7+3 = 10,
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+2+(5+3) = 2+8 = 10.
+\]</div>
+<p>Both groupings give the same result.</p>
+<p>So associativity holds.</p>
+<h4 id="3-neutral-element">3. Neutral Element<a class="headerlink" href="#3-neutral-element" title="Permanent link">&para;</a></h4>
+<p>For addition, the neutral element is</p>
+<div class="arithmatex">\[
+0.
+\]</div>
+<p>For any real number</p>
+<div class="arithmatex">\[
+x \in \mathbb{R},
+\]</div>
+<p>we have</p>
+<div class="arithmatex">\[
+x + 0 = x
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+0 + x = x.
+\]</div>
+<p>For example,</p>
+<div class="arithmatex">\[
+5 + 0 = 5.
+\]</div>
+<p>So the neutral element exists.</p>
+<h4 id="4-inverse-element">4. Inverse Element<a class="headerlink" href="#4-inverse-element" title="Permanent link">&para;</a></h4>
+<p>For addition, the inverse of a real number <span class="arithmatex">\(x\)</span> is</p>
+<div class="arithmatex">\[
+-x.
+\]</div>
+<p>This is because</p>
+<div class="arithmatex">\[
+x + (-x) = 0
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+(-x) + x = 0.
+\]</div>
+<p>For example, the inverse of <span class="arithmatex">\(5\)</span> under addition is <span class="arithmatex">\(-5\)</span> because</p>
+<div class="arithmatex">\[
+5 + (-5) = 0.
+\]</div>
+<p>So every real number has an inverse under addition.</p>
+<p>All four properties are satisfied. Hence,
+$$ (\mathbb{R}, +) $$
+is a group.</p>
+<hr />
+<h2 id="4-abelian-group">4. Abelian Group<a class="headerlink" href="#4-abelian-group" title="Permanent link">&para;</a></h2>
+<p>A group is called <strong>Abelian</strong> if the order of operation does not matter.</p>
+<p>That means</p>
+<div class="arithmatex">\[
+x + y = y + x.
+\]</div>
+<p>For example,</p>
+<div class="arithmatex">\[
+(\mathbb{R}, +)
+\]</div>
+<p>is Abelian because</p>
+<div class="arithmatex">\[
+2 + 5 = 5 + 2.
+\]</div>
+<p>Vector addition is expected to behave like this.</p>
+<p>If <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> are vectors, then</p>
+<div class="arithmatex">\[
+x + y = y + x.
+\]</div>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>Abelian means “order does not matter.”</p>
+</div>
+<hr />
+<h2 id="5-what-is-a-vector-space">5. What Is a Vector Space?<a class="headerlink" href="#5-what-is-a-vector-space" title="Permanent link">&para;</a></h2>
+<p>A <strong>vector space</strong> is a set <span class="arithmatex">\(V\)</span> with two operations:</p>
+<ol>
+<li>addition of vectors,</li>
+<li>multiplication of vectors by scalars.</li>
+</ol>
+<p>We write a vector space as</p>
+<div class="arithmatex">\[
+V = (V, +, \cdot).
+\]</div>
+<p>Here:</p>
+<ul>
+<li><span class="arithmatex">\(V\)</span> is the set of vectors,</li>
+<li><span class="arithmatex">\(+\)</span> is vector addition,</li>
+<li><span class="arithmatex">\(\cdot\)</span> is scalar multiplication.</li>
+</ul>
+<p>For a real-valued vector space, the scalars come from</p>
+<div class="arithmatex">\[
+\mathbb{R} (\text{real numbers}).
+\]</div>
+<hr />
+<h2 id="6-vector-space-rules">6. Vector Space Rules<a class="headerlink" href="#6-vector-space-rules" title="Permanent link">&para;</a></h2>
+<p>A set <span class="arithmatex">\(V\)</span> is a vector space if it satisfies the following ideas.</p>
+<h3 id="addition-rules">Addition Rules<a class="headerlink" href="#addition-rules" title="Permanent link">&para;</a></h3>
+<p>For vectors <span class="arithmatex">\(x,y,z \in V\)</span>:</p>
+<div class="arithmatex">\[
+x + y \in V
+\]</div>
+<div class="arithmatex">\[
+x + y = y + x
+\]</div>
+<div class="arithmatex">\[
+(x+y)+z = x+(y+z)
+\]</div>
+<p>There must be a zero vector <span class="arithmatex">\(0 \in V\)</span> such that</p>
+<div class="arithmatex">\[
+x + 0 = x.
+\]</div>
+<p>Every vector <span class="arithmatex">\(x\)</span> must have an additive inverse <span class="arithmatex">\(-x\)</span> such that</p>
+<div class="arithmatex">\[
+x + (-x) = 0.
+\]</div>
+<h3 id="scalar-multiplication-rules">Scalar Multiplication Rules<a class="headerlink" href="#scalar-multiplication-rules" title="Permanent link">&para;</a></h3>
+<p>For scalars <span class="arithmatex">\(\lambda,\psi \in \mathbb{R}\)</span> and vectors <span class="arithmatex">\(x,y \in V\)</span>:</p>
+<div class="arithmatex">\[
+\lambda x \in V
+\]</div>
+<div class="arithmatex">\[
+\lambda(x+y) = \lambda x + \lambda y
+\]</div>
+<div class="arithmatex">\[
+(\lambda+\psi)x = \lambda x + \psi x
+\]</div>
+<div class="arithmatex">\[
+\lambda(\psi x) = (\lambda \psi)x
+\]</div>
+<div class="arithmatex">\[
+1x = x.
+\]</div>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>These rules guarantee that adding, scaling, and combining vectors behaves predictably.</p>
+</div>
+<hr />
+<h2 id="7-examples-of-vector-spaces">7. Examples of Vector Spaces<a class="headerlink" href="#7-examples-of-vector-spaces" title="Permanent link">&para;</a></h2>
+<h3 id="71-mathbbrn-is-a-vector-space">7.1. <span class="arithmatex">\(\mathbb{R}^n\)</span> Is a Vector Space<a class="headerlink" href="#71-mathbbrn-is-a-vector-space" title="Permanent link">&para;</a></h3>
+<p>More generally,</p>
+<div class="arithmatex">\[
+\mathbb{R}^n
+\]</div>
+<p>is a vector space.</p>
+<p>A vector in <span class="arithmatex">\(\mathbb{R}^n\)</span> looks like</p>
+<div class="arithmatex">\[
+x =
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{bmatrix}.
+\]</div>
+<p>Vector addition is component-wise:</p>
+<div class="arithmatex">\[
+x+y =
+\begin{bmatrix}
+x_1+y_1 \\
+x_2+y_2 \\
+\vdots \\
+x_n+y_n
+\end{bmatrix}.
+\]</div>
+<p>Scalar multiplication is also component-wise:</p>
+<div class="arithmatex">\[
+\lambda x =
+\begin{bmatrix}
+\lambda x_1 \\
+\lambda x_2 \\
+\vdots \\
+\lambda x_n
+\end{bmatrix}.
+\]</div>
+<hr />
+<h3 id="72-matrices-can-form-vector-spaces">7.2. Matrices Can Form Vector Spaces<a class="headerlink" href="#72-matrices-can-form-vector-spaces" title="Permanent link">&para;</a></h3>
+<p>Matrices of the same shape also form vector spaces.</p>
+<p>For example,</p>
+<div class="arithmatex">\[
+\mathbb{R}^{2 \times 2}
+\]</div>
+<p>is the set of all real-valued <span class="arithmatex">\(2 \times 2\)</span> matrices.</p>
+<p>If</p>
+<div class="arithmatex">\[
+A =
+\begin{bmatrix}
+1 &amp; 2 \\
+3 &amp; 4
+\end{bmatrix}
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+B =
+\begin{bmatrix}
+5 &amp; 6 \\
+7 &amp; 8
+\end{bmatrix},
+\]</div>
+<p>then</p>
+<div class="arithmatex">\[
+A+B =
+\begin{bmatrix}
+6 &amp; 8 \\
+10 &amp; 12
+\end{bmatrix}.
+\]</div>
+<p>This is still a <span class="arithmatex">\(2 \times 2\)</span> matrix.</p>
+<p>If</p>
+<div class="arithmatex">\[
+\lambda = 2,
+\]</div>
+<p>then</p>
+<div class="arithmatex">\[
+2A =
+\begin{bmatrix}
+2 &amp; 4 \\
+6 &amp; 8
+\end{bmatrix}.
+\]</div>
+<p>This is also still a <span class="arithmatex">\(2 \times 2\)</span> matrix.</p>
+<p>Therefore,</p>
+<div class="arithmatex">\[
+\mathbb{R}^{2 \times 2}
+\]</div>
+<p>is a vector space.</p>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>Matrices can be treated as vectors because we can add them and scale them while staying inside the same set.</p>
+</div>
+<hr />
+<h3 id="73-polynomials-can-form-vector-spaces">7.3. Polynomials Can Form Vector Spaces<a class="headerlink" href="#73-polynomials-can-form-vector-spaces" title="Permanent link">&para;</a></h3>
+<p>Vectors do not always have to look like columns of numbers.</p>
+<p>Polynomials can also form vector spaces.</p>
+<p>Consider the set of all polynomials of degree at most 2:</p>
+<div class="arithmatex">\[
+p(t) = a + bt + ct^2.
+\]</div>
+<p>If</p>
+<div class="arithmatex">\[
+p(t) = 1 + 2t + 3t^2
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+q(t) = 4 + t - t^2,
+\]</div>
+<p>then</p>
+<div class="arithmatex">\[
+p(t) + q(t) =
+5 + 3t + 2t^2.
+\]</div>
+<p>This is still a polynomial of degree at most 2.</p>
+<p>If</p>
+<div class="arithmatex">\[
+\lambda = 3,
+\]</div>
+<p>then</p>
+<div class="arithmatex">\[
+3p(t) = 3 + 6t + 9t^2.
+\]</div>
+<p>This is also still a polynomial of degree at most 2.</p>
+<p>So this set is a vector space.</p>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>A vector is not defined by how it looks. It is defined by how it behaves under addition and scaling.</p>
+</div>
+<hr />
+<h2 id="8-what-is-closure">8. What Is Closure?<a class="headerlink" href="#8-what-is-closure" title="Permanent link">&para;</a></h2>
+<p>Closure means that an operation keeps us inside the same set.</p>
+<p>For vector spaces, closure means:</p>
+<h3 id="closure-under-addition">Closure under addition<a class="headerlink" href="#closure-under-addition" title="Permanent link">&para;</a></h3>
+<p>If</p>
+<div class="arithmatex">\[
+x,y \in V,
+\]</div>
+<p>then</p>
+<div class="arithmatex">\[
+x+y \in V.
+\]</div>
+<h3 id="closure-under-scalar-multiplication">Closure under scalar multiplication<a class="headerlink" href="#closure-under-scalar-multiplication" title="Permanent link">&para;</a></h3>
+<p>If</p>
+<div class="arithmatex">\[
+x \in V
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+\lambda \in \mathbb{R},
+\]</div>
+<p>then</p>
+<div class="arithmatex">\[
+\lambda x \in V.
+\]</div>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>Closure means the operation does not throw us outside the space.</p>
+</div>
+<hr />
+<h2 id="9-vector-subspaces">9. Vector Subspaces<a class="headerlink" href="#9-vector-subspaces" title="Permanent link">&para;</a></h2>
+<p>A <strong>vector subspace</strong> is a smaller vector space inside a larger vector space.</p>
+<p>If</p>
+<div class="arithmatex">\[
+U \subseteq V
+\]</div>
+<p>and <span class="arithmatex">\(U\)</span> is itself a vector space using the same addition and scalar multiplication as <span class="arithmatex">\(V\)</span>, then <span class="arithmatex">\(U\)</span> is a subspace of <span class="arithmatex">\(V\)</span>.</p>
+<hr />
+<h3 id="subspace-test">Subspace Test<a class="headerlink" href="#subspace-test" title="Permanent link">&para;</a></h3>
+<p>To check whether a nonempty subset <span class="arithmatex">\(U\)</span> is a subspace of <span class="arithmatex">\(V\)</span>, we only need to check:</p>
+<ol>
+<li>the zero vector is in <span class="arithmatex">\(U\)</span>,</li>
+<li><span class="arithmatex">\(U\)</span> is closed under addition,</li>
+<li><span class="arithmatex">\(U\)</span> is closed under scalar multiplication.</li>
+</ol>
+<p>Equivalently:</p>
+<p>If</p>
+<div class="arithmatex">\[
+x,y \in U
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+\lambda \in \mathbb{R},
+\]</div>
+<p>then</p>
+<div class="arithmatex">\[
+x+y \in U
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+\lambda x \in U.
+\]</div>
+<hr />
+<h2 id="10-examples-and-non-examples-of-subspaces">10. Examples and Non-Examples of Subspaces<a class="headerlink" href="#10-examples-and-non-examples-of-subspaces" title="Permanent link">&para;</a></h2>
+<h3 id="101-a-line-through-the-origin-is-a-subspace">10.1. A Line Through the Origin Is a Subspace<a class="headerlink" href="#101-a-line-through-the-origin-is-a-subspace" title="Permanent link">&para;</a></h3>
+<p>Consider the line</p>
+<div class="arithmatex">\[
+U =
+\left\{
+\begin{bmatrix}
+t \\
+2t
+\end{bmatrix}
+:
+t \in \mathbb{R}
+\right\}.
+\]</div>
+<p>This is a line through the origin in <span class="arithmatex">\(\mathbb{R}^2\)</span>.</p>
+<p>Check the subspace conditions.</p>
+<h4 id="zero-vector">Zero vector<a class="headerlink" href="#zero-vector" title="Permanent link">&para;</a></h4>
+<p>Choose</p>
+<div class="arithmatex">\[
+t=0.
+\]</div>
+<p>Then</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+t \\
+2t
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+0
+\end{bmatrix}.
+\]</div>
+<p>So <span class="arithmatex">\(0 \in U\)</span>.</p>
+<h4 id="closure-under-addition_1">Closure under addition<a class="headerlink" href="#closure-under-addition_1" title="Permanent link">&para;</a></h4>
+<p>Take</p>
+<div class="arithmatex">\[
+x =
+\begin{bmatrix}
+s \\
+2s
+\end{bmatrix}
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+y =
+\begin{bmatrix}
+t \\
+2t
+\end{bmatrix}.
+\]</div>
+<p>Then</p>
+<div class="arithmatex">\[
+x+y =
+\begin{bmatrix}
+s+t \\
+2s+2t
+\end{bmatrix}
+=
+\begin{bmatrix}
+s+t \\
+2(s+t)
+\end{bmatrix}.
+\]</div>
+<p>This is still in <span class="arithmatex">\(U\)</span>.</p>
+<h4 id="closure-under-scalar-multiplication_1">Closure under scalar multiplication<a class="headerlink" href="#closure-under-scalar-multiplication_1" title="Permanent link">&para;</a></h4>
+<p>Take</p>
+<div class="arithmatex">\[
+\lambda \in \mathbb{R}.
+\]</div>
+<p>Then</p>
+<div class="arithmatex">\[
+\lambda x =
+\lambda
+\begin{bmatrix}
+s \\
+2s
+\end{bmatrix}
+=
+\begin{bmatrix}
+\lambda s \\
+2\lambda s
+\end{bmatrix}.
+\]</div>
+<p>This is still in <span class="arithmatex">\(U\)</span>.</p>
+<p>Therefore, <span class="arithmatex">\(U\)</span> is a subspace of <span class="arithmatex">\(\mathbb{R}^2\)</span>.</p>
+<hr />
+<h3 id="102-a-line-not-through-the-origin-is-not-a-subspace">10.2. A Line Not Through the Origin Is Not a Subspace<a class="headerlink" href="#102-a-line-not-through-the-origin-is-not-a-subspace" title="Permanent link">&para;</a></h3>
+<p>Consider</p>
+<div class="arithmatex">\[
+U =
+\left\{
+\begin{bmatrix}
+t \\
+2t+1
+\end{bmatrix}
+:
+t \in \mathbb{R}
+\right\}.
+\]</div>
+<p>This is a line in <span class="arithmatex">\(\mathbb{R}^2\)</span>, but it does not pass through the origin.</p>
+<p>To be a subspace, <span class="arithmatex">\(U\)</span> must contain the zero vector.</p>
+<p>Can we find <span class="arithmatex">\(t\)</span> such that</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+t \\
+2t+1
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+0
+\end{bmatrix}?
+\]</div>
+<p>The first coordinate gives</p>
+<div class="arithmatex">\[
+t=0.
+\]</div>
+<p>But then the second coordinate becomes</p>
+<div class="arithmatex">\[
+2(0)+1 = 1.
+\]</div>
+<p>So we get</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix},
+\]</div>
+<p>not</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+0 \\
+0
+\end{bmatrix}.
+\]</div>
+<p>Therefore, the zero vector is not in <span class="arithmatex">\(U\)</span>.</p>
+<p>So <span class="arithmatex">\(U\)</span> is not a subspace.</p>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>A line must pass through the origin to be a subspace.</p>
+</div>
+<hr />
+<h3 id="103-homogeneous-systems-create-subspaces">10.3. Homogeneous Systems Create Subspaces<a class="headerlink" href="#103-homogeneous-systems-create-subspaces" title="Permanent link">&para;</a></h3>
+<p>The solution set of a homogeneous system</p>
+<div class="arithmatex">\[
+Ax = 0
+\]</div>
+<p>is always a subspace.</p>
+<p>Why?</p>
+<p>Let <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> be two solutions.</p>
+<p>That means</p>
+<div class="arithmatex">\[
+Ax = 0
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+Ay = 0.
+\]</div>
+<p>Now check addition:</p>
+<div class="arithmatex">\[
+A(x+y) = Ax + Ay = 0 + 0 = 0.
+\]</div>
+<p>So <span class="arithmatex">\(x+y\)</span> is also a solution.</p>
+<p>Now check scalar multiplication:</p>
+<div class="arithmatex">\[
+A(\lambda x) = \lambda Ax = \lambda 0 = 0.
+\]</div>
+<p>So <span class="arithmatex">\(\lambda x\)</span> is also a solution.</p>
+<p>Therefore, the solution set of</p>
+<div class="arithmatex">\[
+Ax=0
+\]</div>
+<p>is closed under addition and scalar multiplication.</p>
+<p>So it is a subspace.</p>
+<hr />
+<h3 id="104-inhomogeneous-systems-usually-do-not-create-subspaces">10.4. Inhomogeneous Systems Usually Do Not Create Subspaces<a class="headerlink" href="#104-inhomogeneous-systems-usually-do-not-create-subspaces" title="Permanent link">&para;</a></h3>
+<p>The solution set of</p>
+<div class="arithmatex">\[
+Ax=b,
+\quad b \neq 0,
+\]</div>
+<p>is generally not a subspace.</p>
+<p>Why?</p>
+<p>A subspace must contain the zero vector.</p>
+<p>But if</p>
+<div class="arithmatex">\[
+x=0,
+\]</div>
+<p>then</p>
+<div class="arithmatex">\[
+A0 = 0.
+\]</div>
+<p>So <span class="arithmatex">\(x=0\)</span> cannot solve</p>
+<div class="arithmatex">\[
+Ax=b
+\]</div>
+<p>unless</p>
+<div class="arithmatex">\[
+b=0.
+\]</div>
+<p>Therefore, when <span class="arithmatex">\(b \neq 0\)</span>, the solution set is shifted away from the origin.</p>
+<p>It may be a line or plane, but it is not a subspace.</p>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>Homogeneous solution sets pass through the origin. Inhomogeneous solution sets are usually shifted away from the origin.</p>
+</div>
+<hr />
+<h2 id="11-geometric-interpretation">11. Geometric Interpretation<a class="headerlink" href="#11-geometric-interpretation" title="Permanent link">&para;</a></h2>
+<p>In <span class="arithmatex">\(\mathbb{R}^2\)</span>:</p>
+<ul>
+<li>the zero vector <span class="arithmatex">\({0}\)</span> is a subspace,</li>
+<li>any line through the origin is a subspace,</li>
+<li>the whole plane <span class="arithmatex">\(\mathbb{R}^2\)</span> is a subspace.</li>
+</ul>
+<p>A line not through the origin is not a subspace.</p>
+<p>In <span class="arithmatex">\(\mathbb{R}^3\)</span>:</p>
+<ul>
+<li>the zero vector <span class="arithmatex">\({0}\)</span> is a subspace,</li>
+<li>any line through the origin is a subspace,</li>
+<li>any plane through the origin is a subspace,</li>
+<li>the whole space <span class="arithmatex">\(\mathbb{R}^3\)</span> is a subspace.</li>
+</ul>
+<p>A plane not through the origin is not a subspace.</p>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>Geometrically, subspaces are flat spaces that pass through the origin.</p>
+</div>
+<hr />
+<h2 id="12-machine-learning-connection">12. Machine Learning Connection<a class="headerlink" href="#12-machine-learning-connection" title="Permanent link">&para;</a></h2>
+<p>Vector spaces matter in machine learning because they provide the mathematical setting in which data, parameters, and transformations live.</p>
+<p>A data point is often represented as a vector in a space such as</p>
+<div class="arithmatex">\[
+\mathbb{R}^D.
+\]</div>
+<p>For example, if a house is described using size, number of bedrooms, and age, then it can be represented as a vector in</p>
+<div class="arithmatex">\[
+\mathbb{R}^3.
+\]</div>
+<p>Subspaces become important when we want to represent high-dimensional data using a smaller set of directions.</p>
+<p>This idea appears later in dimensionality reduction methods such as PCA, where data is approximated using a lower-dimensional subspace.</p>
+<div class="admonition intuition">
+<p class="admonition-title">Intuition</p>
+<p>A vector space is the universe of possible vectors. A subspace is a smaller structured region inside that universe.</p>
+</div>
+<hr />
+<h2 id="13-summary">13. Summary<a class="headerlink" href="#13-summary" title="Permanent link">&para;</a></h2>
+<p>A vector space is a set of objects that can be added and scaled while staying inside the same set.</p>
+<p>The two main operations are:</p>
+<div class="arithmatex">\[
+x+y
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+\lambda x.
+\]</div>
+<p>A vector space must satisfy rules such as closure, associativity, distributivity, existence of a zero vector, and existence of additive inverses.</p>
+<p>Examples of vector spaces include:</p>
+<ul>
+<li><span class="arithmatex">\(\mathbb{R}^n\)</span>,</li>
+<li>matrices of a fixed shape,</li>
+<li>polynomials of bounded degree,</li>
+<li>certain function spaces.</li>
+</ul>
+<p>A subspace is a vector space inside another vector space.</p>
+<p>To check whether a subset is a subspace, verify:</p>
+<ol>
+<li>it contains the zero vector,</li>
+<li>it is closed under addition,</li>
+<li>it is closed under scalar multiplication.</li>
+</ol>
+<p>The solution set of</p>
+<div class="arithmatex">\[
+Ax=0
+\]</div>
+<p>is always a subspace.</p>
+<p>The solution set of</p>
+<div class="arithmatex">\[
+Ax=b,
+\quad b \neq 0,
+\]</div>
+<p>is generally not a subspace.</p>
+<p>Geometrically, subspaces are flat spaces that pass through the origin.</p>
+<p>Vector spaces and subspaces are foundational for machine learning because data, models, embeddings, gradients, and low-dimensional representations often live inside vector spaces.</p>
+<hr />
+<h2 id="14-quick-check">14. Quick Check<a class="headerlink" href="#14-quick-check" title="Permanent link">&para;</a></h2>
+<ol>
+<li>What are the two operations required for a vector space?</li>
+<li>What does closure mean?</li>
+<li>Why is <span class="arithmatex">\(\mathbb{R}^n\)</span> a vector space?</li>
+<li>Why are matrices of fixed shape a vector space?</li>
+<li>Why is the set of positive vectors not a vector space?</li>
+<li>What is a vector subspace?</li>
+<li>Why must every subspace contain the zero vector?</li>
+<li>Why is a line through the origin a subspace?</li>
+<li>Why is a line not through the origin not a subspace?</li>
+<li>Why is the solution set of <span class="arithmatex">\(Ax=0\)</span> a subspace?</li>
+<li>Why is the solution set of <span class="arithmatex">\(Ax=b\)</span>, <span class="arithmatex">\(b \neq 0\)</span>, generally not a subspace?</li>
+<li>How do subspaces appear in machine learning?</li>
+</ol>
+<hr />
+<h2 id="15-key-formula-sheet">15. Key Formula Sheet<a class="headerlink" href="#15-key-formula-sheet" title="Permanent link">&para;</a></h2>
+<p>Vector addition:</p>
+<div class="arithmatex">\[
+x+y \in V
+\]</div>
+<p>Scalar multiplication:</p>
+<div class="arithmatex">\[
+\lambda x \in V
+\]</div>
+<p>Closure under addition:</p>
+<div class="arithmatex">\[
+x,y \in V
+\implies
+x+y \in V
+\]</div>
+<p>Closure under scalar multiplication:</p>
+<div class="arithmatex">\[
+x \in V,\ \lambda \in \mathbb{R}
+\implies
+\lambda x \in V
+\]</div>
+<p>Distributivity over vector addition:</p>
+<div class="arithmatex">\[
+\lambda(x+y)=\lambda x+\lambda y
+\]</div>
+<p>Distributivity over scalar addition:</p>
+<div class="arithmatex">\[
+(\lambda+\psi)x = \lambda x + \psi x
+\]</div>
+<p>Scalar associativity:</p>
+<div class="arithmatex">\[
+\lambda(\psi x) = (\lambda \psi)x
+\]</div>
+<p>Neutral scalar:</p>
+<div class="arithmatex">\[
+1x=x
+\]</div>
+<p>Subspace test:</p>
+<div class="arithmatex">\[
+0 \in U
+\]</div>
+<div class="arithmatex">\[
+x,y \in U \implies x+y \in U
+\]</div>
+<div class="arithmatex">\[
+x \in U,\ \lambda \in \mathbb{R} \implies \lambda x \in U
+\]</div>
+<p>Homogeneous solution subspace:</p>
+<div class="arithmatex">\[
+{x \in \mathbb{R}^n : Ax=0}
+\]</div>
+<p>Inhomogeneous solution set, generally not a subspace:</p>
+<div class="arithmatex">\[
+{x \in \mathbb{R}^n : Ax=b,\ b\neq 0}
+\]</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
