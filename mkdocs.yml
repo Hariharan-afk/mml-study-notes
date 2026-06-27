@@ -53,6 +53,7 @@ nav:
       - Systems of Linear Equations: 02-linear-algebra/01-systems-of-linear-equations.md
       - Matrices: 02-linear-algebra/02-matrices.md
       - Solving Systems of Linear Equations: 02-linear-algebra/03-solving-systems-of-linear-equations.md
+      - Vector Spaces: 02-linear-algebra/04-vector-spaces.md
   - Analytic Geometry:
       - Chapter Overview: 03-analytic-geometry/index.md
   - Matrix Decompositions:
